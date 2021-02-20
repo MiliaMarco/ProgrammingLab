@@ -60,3 +60,4 @@ miofile = CSVFile("shampoo_sales.csv")
 print('Nome del file: "{}"'.format(miofile.nome))
 print('Dati contenuti nel file: "{}"'.format(miofile.get_data()))
 
+ 
