@@ -6,8 +6,39 @@ class Modello(object):
     
     def predict(self):
         pass
+class VariazionenoFit(Modello):
+    def fit(self, data):
+        raise NotImplementedError('Questo modello non prevede un fit')
+    
+    def predict(self,mesi_prec):
+        if len(mesi_prec)<2:
+            raise Exception('lista dati troppo piccola minimo 2 dati richiesti')
+        for item in mesi_prec:
+            if not type(item)==int and not type(item)==float: 
+                raise Exception ('lista dati non validi')
+            
+                
+            media=[]
+            
+            i=0
+            #mette in una lista la variazione da mese a mese 
+            for item in mesi_prec:
+                if item != mesi_prec[0]:
+                    s=item-mesi_prec[i-1]
+                    media.append(s)
+                i=i+1
+            #fa una media della variazione 
+            som=0
+            x=len(media)
+            for item in media:
+                som=som+item
+            
+            som=som/x       
+            #somma alle vendite attuali la teorica variazione 
+            risprev=mesi_prec[-1]+som
+        return risprev
 
-class Variazione(Modello):
+class VariazioneconFit(Modello):
     def fit(self,data):
         if len(data) < 2:
             raise Exception('lista dati troppo piccola minimo 2 dati richiesti')
@@ -68,9 +99,29 @@ class Variazione(Modello):
 
 
 
-        
+data=[8,19,31,41,50,52,60]        
 
-obj=Variazione()
-data=[8,19,31,41,50,52,60]
-print('fit :{}'.format(obj.fit(data[:4])))
-print('prev :{}'.format(obj.predict(data[4:7])))
+traintest=24
+prewind=3
+testset=len(shampoo_sales)-traintest
+
+objnF=VariazionenoFit()
+objF=VariazioneconFit()
+objF.fit(shampoo_sales[0:traintest])
+
+modelli=[objF,objnF]
+
+for modello in modelli: 
+    errore=0
+    valori=[]
+
+    for i in range(testset):
+        start =traintest+i-prewind-1
+        end =traintest+i-1
+
+        pre=modello.predict(shampoo_sales[start:end])
+        errore += abs(pre - shampoo_sales[traintest+i])
+
+    erroremedio= errore/testset
+    print('errore medio :{}'.format(erroremedio))
+
