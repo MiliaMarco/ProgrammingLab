@@ -1,3 +1,6 @@
+class ExamException(Exception):
+    pass
+
 def hourly_trend_changes(data):
     i=0
     listacamb=[]
@@ -79,9 +82,6 @@ def hourly_trend_changes(data):
                 cont=0    
     return listacamb
 
-class ExamException(Exception):
-    pass
-
 #creazione lista di liste funziona 
 #bisogna aggiungere controlli
 class CSVTimeSeriesFile():
@@ -127,8 +127,7 @@ class CSVTimeSeriesFile():
 time_series_file= CSVTimeSeriesFile(name="data.csv")
 time_series=time_series_file.get_data()
 
-for item in time_series:    
-    print(item)
+print(time_series)
 
 test=hourly_trend_changes(time_series)
 print(test)
