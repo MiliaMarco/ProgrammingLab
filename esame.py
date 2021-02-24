@@ -12,6 +12,10 @@ def hourly_trend_changes(data):
     lung=len(data)
     prob=[] #variabile utiliazzata se il trend iniziale non e' facilmente riconoscibile        
     for item in data:
+        if lung==1:
+            listacamb.append(cont)
+        if lung==2 and i==1:
+            listacamb.append(cont)    
         if i<2:
             epoch.append(item[0])
             temp.append(item[1])
