@@ -30,7 +30,6 @@ def hourly_trend_changes(data):
                 e1=int(e1)
                 if not (ep)==(e1): 
                     listacamb.append(cont)
-                    #print('{}  {}'.format(e1,cont))
                     cont=0
             if i==2: 
                 if temp[0]==temp[1]:
@@ -82,12 +81,10 @@ def hourly_trend_changes(data):
             i=i+1
             if i == lung:
                 listacamb.append(cont)
-                #print('{}  {}'.format(e1,cont))
                 cont=0    
     return listacamb
 
-#creazione lista di liste funziona 
-#bisogna aggiungere controlli
+
 class CSVTimeSeriesFile():
     def __init__(self,name):
         self.name=name
@@ -97,8 +94,8 @@ class CSVTimeSeriesFile():
         lista=[]
         sublist=[]
         ordinamento=[]
-        name=self.name.strip() #controllo spazi in piu
-        try: # controllo corettezza nome
+        name=self.name.strip() 
+        try: 
             file = open(name,'r')
         except:
             raise ExamException('Errore, file non esistente')
@@ -127,14 +124,13 @@ class CSVTimeSeriesFile():
             i=i+1
         return lista
 
-#test        
+#test-----------------------------------------------------        
 time_series_file= CSVTimeSeriesFile(name="data.csv")
 time_series=time_series_file.get_data()
-
 print(time_series)
-
 test=hourly_trend_changes(time_series)
 print(test)
+#test------------------------------------------------------
 
 
 
